@@ -384,5 +384,11 @@ module Pubnub
       end
       symbolized_options
     end
+
+    def secure_call(cb, arg)
+      cb.call arg
+    rescue StandardError => error
+      Pubnub.logger.error('Pubnub::Client') { "Error while calling callback #{error.inspect}" }
+    end
   end
 end
